@@ -1,0 +1,56 @@
+<div class="container main-container">
+    <h1>Videos de Youtube</h1>
+    <hr>
+
+    <div class="card-columns" *ngIf="videos.length > 0">
+
+        <div class="card animated fadeIn fast" *ngFor="let video of videos">
+            <img [src]="video.thumbnails.high.url" [alt]="video.title" class="card-img-top img-fluid">
+            <div class="card-block">
+                <h6 class="card-title font-italic">
+                    {{video.title}}
+                </h6>
+                <button (click)="verVideo(video)" type="button" class="btn btn-outline-danger btn-block" data-toggle="modal"
+                    data-target="#videoModal">
+                    Ver Video
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <button type="button" class="btn btn-outline-primary" (click)="agregarVideos()">
+            Ver más...
+        </button>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" 
+    id="videoModal" 
+    tabindex="-1" 
+    role="dialog" 
+    aria-labelledby="exampleModalLabel" 
+    aria-hidden="true"
+    data-backdrop="static"
+    data-keyboard="false">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content" *ngIf="videoSel">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{videoSel.title}}</h5>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button> -->
+            </div>
+            <div class="modal-body">
+                <iframe width="100%" height="300" [src]="videoSel.resourceId?.videoId | videoYoutube" frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)="cerrarModal()" class="btn btn-outline-danger">Close</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
